@@ -1,4 +1,4 @@
-# app-intent-types
+# Sidekick app extensions intent types
 
 Public catalog and proposal venue for **Sidekick app intent types** — the MIME-typed schemas that Shopify apps register to declare "I can create or edit a thing of this shape."
 
