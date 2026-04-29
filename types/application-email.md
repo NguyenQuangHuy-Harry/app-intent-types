@@ -54,21 +54,27 @@ Three things to notice:
 }
 ```
 
-That's it for the simple case. If your extension only handles a subset of the type — say, you only support transactional emails, not marketing campaigns — narrow the schema by composing the `$ref` with additional constraints rather than redefining fields.
-
 ## Fields the schema describes
 
-The canonical schema is the source of truth; this is a high-level orientation:
+**What the canonical schema captures today:**
 
-| Field | Notes |
-|---|---|
-| `to`, `cc`, `bcc` | Recipient addresses. May be partial — Sidekick can fill in. |
-| `subject` | Email subject line. |
-| `body` | Email body. May be plain text or HTML, depending on schema sub-type. |
-| `from` | Sending address. Often determined by the app, not the merchant. |
-| `attachments` | Optional. Schema describes URI references, not raw bytes. |
+| Field | Type | Notes |
+|---|---|---|
+| `id` | string | The email ID. Used for `edit` actions. |
+| `subject` | string | Email subject line. |
+| `body` | string | Email body content. |
+| `from` | object `{email, name}` | Sending address. |
+| `to` | array of `{email, name}` | Recipient addresses. |
 
-For the authoritative field list, fetch the schema URL above.
+`additionalProperties: true` — apps may pass extra fields, but Sidekick won't validate them.
+
+**Fields commonly proposed for inclusion** (open an [RFC discussion](../../discussions/categories/rfc) to push for any of these):
+
+- `cc`, `bcc` — additional recipients
+- `body_html` distinct from plain-text `body`
+- `attachments` — URI references, not raw bytes
+- `reply_to` — for separating sending vs reply addresses
+- `template_id` — when the email is generated from a saved template
 
 ## Common pitfalls
 
@@ -78,8 +84,8 @@ For the authoritative field list, fetch the schema URL above.
 
 ## Related types
 
-- **`application/campaign`** — for multi-recipient marketing sends with scheduling, segmentation, and tracking. If the email is a campaign, register that type instead.
-- **`application/ticket`** — for support replies threaded into an ongoing customer conversation. Use this when the "email" is really a ticket reply.
+- **[`application/campaign`](./application-campaign.md)** — for multi-recipient marketing sends with scheduling, segmentation, and tracking. If the email is a campaign, register that type instead.
+- **[`application/ticket`](./application-ticket.md)** — for support replies threaded into an ongoing customer conversation. Use this when the "email" is really a ticket reply.
 
 ## Discussion history
 
