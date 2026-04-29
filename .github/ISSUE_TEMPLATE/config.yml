@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Propose a new intent type
+    url: https://github.com/Shopify/app-intent-types/discussions/new?category=rfc
+    about: Open an RFC discussion to sketch a new type. Once shaped, follow up with a PR adding a file under types/.
+  - name: Ask for help with intent registration
+    url: https://github.com/Shopify/app-intent-types/discussions/categories/help
+    about: Stuck on shopify.extension.toml or your inputSchema? Ask in Discussions.
+  - name: Report a Sidekick bug
+    url: https://community.shopify.com/c/shopify-apps/ct-p/shopify-apps
+    about: Bugs in Sidekick or your extension's runtime behavior belong in the Shopify Community forum, not here.
