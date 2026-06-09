@@ -1,6 +1,6 @@
 # Sidekick app extensions intent types
 
-Public catalog and proposal venue for **Sidekick app intent types** — the MIME-typed schemas that Shopify apps register to declare "I can create or edit a thing of this shape."
+Public catalog and proposal venue for **Sidekick app intent types** — the MIME-typed schemas that Shopify apps register to declare "I can create, edit, or import a thing of this shape."
 
 If you're building a Shopify app and the type you need to register an intent for doesn't exist yet, **this is the place to ask for it.**
 
@@ -8,23 +8,39 @@ If you're building a Shopify app and the type you need to register an intent for
 
 ## What's here
 
-- **[`types/`](./types/)** — every intent type Shopify currently supports, one file per type, with the JSON Schema URL, the actions it supports (`create`, `edit`), and example use cases.
+- **[`types/`](./types/)** — every intent type Shopify currently supports, one file per type, with the JSON Schema URL, supported actions, and example use cases.
 - **[Discussions](../../discussions)** — open conversations about intent design, early-stage proposals, and questions. Use this before a formal PR.
 - **Pull requests** — formal proposals for new types, additions to existing types, and refinements. See [How to propose a new type](#how-to-propose-a-new-type) below.
 
 ## Currently supported types
 
-| Type | Actions | Schema |
-|---|---|---|
-| `application/ad` | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/ad.json) |
-| `application/campaign` | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/campaign.json) |
-| `application/email` | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/email.json) |
-| `application/faq` | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/faq.json) |
-| `application/loyalty-program` | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/loyalty-program.json) |
-| `application/return` | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/return.json) |
-| `application/review` | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/review.json) |
-| `application/shipment` | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/shipment.json) |
-| `application/ticket` | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/ticket.json) |
+This list mirrors the supported types documented in [Build an app action](https://shopify.dev/docs/apps/build/sidekick/build-app-actions).
+
+### `application/*` intents
+
+Use `application/*` intents when your app owns the data shape. Each type supports both `create` and `edit` actions.
+
+| Type | Description | Actions | Schema |
+|---|---|---|---|
+| [`application/ad`](./types/application-ad.md) | Ad campaigns | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/ad.json) |
+| [`application/campaign`](./types/application-campaign.md) | Marketing campaigns | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/campaign.json) |
+| [`application/email`](./types/application-email.md) | Email campaigns | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/email.json) |
+| [`application/faq`](./types/application-faq.md) | FAQ management | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/faq.json) |
+| [`application/loyalty-program`](./types/application-loyalty-program.md) | Loyalty programs | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/loyalty-program.json) |
+| [`application/return`](./types/application-return.md) | Returns management | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/return.json) |
+| [`application/review`](./types/application-review.md) | Product reviews | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/review.json) |
+| [`application/shipment`](./types/application-shipment.md) | Shipment tracking | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/shipment.json) |
+| [`application/ticket`](./types/application-ticket.md) | Support tickets | `create`, `edit` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/ticket.json) |
+
+### `shopify/*` resource intents
+
+Use `shopify/*` intents when your app operates on a Shopify resource identified by a GID. Each type supports both `import` and `import+bulk` actions.
+
+| Type | Description | Actions | GID schema |
+|---|---|---|---|
+| [`shopify/customer`](./types/shopify-customer.md) | Shopify customers | `import`, `import+bulk` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/shopify/customer/gid.json) |
+| [`shopify/order`](./types/shopify-order.md) | Shopify orders | `import`, `import+bulk` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/shopify/order/gid.json) |
+| [`shopify/product`](./types/shopify-product.md) | Shopify products | `import`, `import+bulk` | [schema](https://extensions.shopifycdn.com/shopifycloud/schemas/v1/shopify/product/gid.json) |
 
 ## How to propose a new type
 
@@ -47,8 +63,8 @@ Once the shape is settled (either through discussion or because the type is obvi
 
 A type proposal PR should include:
 
-- A new file `types/application-{name}.md` describing the type, actions, schema, and example use cases.
-- A draft JSON Schema (inline in the PR or linked from a Gist) that conforms to the [Sidekick schema requirements](https://shopify.dev/docs/apps/build/sidekick/build-app-actions#step-2-create-an-input-schema). Critically, **`inputSchema` must not declare `required` fields** — Sidekick fills missing fields via UI before invoking your extension.
+- A new file under `types/` describing the type, actions, schema, and example use cases. Use `application-{name}.md` for app-owned shapes and `shopify-{resource}.md` for Shopify resource intents.
+- A draft JSON Schema (inline in the PR or linked from a Gist) that conforms to the [Sidekick schema requirements](https://shopify.dev/docs/apps/build/sidekick/build-app-actions). Critically, **`inputSchema` must not declare `required` fields** — Sidekick fills missing fields via UI before invoking your extension.
 - A short rationale: who's asking for this, what problem it unblocks, and any prior art.
 
 We'll review and either merge, request changes, or move it back to a discussion if more shaping is needed.

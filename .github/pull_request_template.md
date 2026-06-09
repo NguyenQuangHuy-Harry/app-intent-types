@@ -8,8 +8,8 @@ https://github.com/Shopify/app-intent-types/discussions/categories/rfc
 
 ## Proposed type
 
-- **Type:** `application/...`
-- **Actions:** `create` / `edit` / both
+- **Type:** `application/...` or `shopify/...`
+- **Actions:** `create` / `edit` / both, or `import` / `import+bulk` / both
 - **One-line summary:**
 
 ## Why this type
@@ -38,6 +38,8 @@ Either a JSON Schema fenced below, or a link to a Gist / branch / external schem
 Confirmed:
 - [ ] `inputSchema` does not declare `required` fields
 - [ ] Field names are consistent with neighboring types in `types/`
+- [ ] For `application/*`, the schema refs the canonical application schema
+- [ ] For `shopify/*`, `value` and `outputSchema` use the matching Shopify resource GID schema
 
 ## Prior art
 
