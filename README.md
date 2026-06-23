@@ -99,4 +99,4 @@ This project follows the [Contributor Covenant](./CODE_OF_CONDUCT.md). By partic
 
 ## License
 
-[MIT](./LICENSE.md)
+The content in this repository is licensed under [CC BY 4.0](./LICENSE.md) (Creative Commons Attribution 4.0 International).
