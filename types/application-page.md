@@ -22,7 +22,7 @@ Typical examples:
 In your extension's `shopify.extension.toml`:
 
 ```toml
-api_version = "2025-04"
+api_version = "2026-07"
 
 [[extensions]]
 name = "build-page"
