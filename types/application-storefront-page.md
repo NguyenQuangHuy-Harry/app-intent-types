@@ -1,14 +1,14 @@
-# `application/page`
+# `application/storefront-page`
 
 Sidekick intent type for composing or editing a **storefront page** — a merchant-authored page of content and layout that an app builds and publishes to the online store.
 
 - **Status:** 🚧 Proposed
 - **Actions:** `create`, `edit`
-- **Schema:** `https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/page.json` *(pending publication — draft inline below)*
+- **Schema:** `https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/storefront-page.json` *(pending publication — draft inline below)*
 
 ## When to register an intent for this type
 
-Register an `application/page` intent when your app can take a partially-specified page — a goal, an audience, some products to feature, a rough section outline — and either (a) build a new page or (b) open an existing one for modification in your app's editor.
+Register an `application/storefront-page` intent when your app can take a partially-specified page — a goal, an audience, some products to feature, a rough section outline — and either (a) build a new page or (b) open an existing one for modification in your app's editor.
 
 Typical examples:
 
@@ -35,9 +35,9 @@ type = "admin_link"
   tools = "./tools.json"
 
   [[extensions.targeting.intents]]
-  type = "application/page"
+  type = "application/storefront-page"
   action = "create"
-  schema = "./page-schema.json"
+  schema = "./storefront-page-schema.json"
 ```
 
 Three things to notice:
@@ -50,12 +50,12 @@ The `admin.app.intent.link` target suits this type better than `admin.app.intent
 
 ## Example: the input schema
 
-`./page-schema.json` (once the canonical schema is published):
+`./storefront-page-schema.json` (once the canonical schema is published):
 
 ```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/page.json"
+  "$ref": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/storefront-page.json"
 }
 ```
 
@@ -64,8 +64,8 @@ The `admin.app.intent.link` target suits this type better than `admin.app.intent
 ```json
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/page.json",
-  "title": "Page Schema",
+  "$id": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/storefront-page.json",
+  "title": "Storefront Page Schema",
   "type": "object",
   "properties": {
     "id": {
